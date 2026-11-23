@@ -1,0 +1,54 @@
+:host {
+  --ink: var(--app-ink);
+  --muted: var(--app-muted);
+  --lavender: #7567d8;
+  --lavender-soft: var(--app-lavender);
+}
+
+ion-content { --background: var(--app-canvas); }
+.history-shell { width: min(100%, 760px); margin: 0 auto; padding: 20px 16px 48px; }
+.hero { padding: 8px 8px 18px; }
+.hero h1 { margin: 3px 0 7px; font-size: clamp(1.8rem, 7vw, 2.35rem); font-weight: 750; letter-spacing: -0.045em; }
+.hero > p:last-child { margin: 0; color: var(--muted); }
+.eyebrow { margin: 0; color: var(--lavender); font-size: .72rem; font-weight: 800; letter-spacing: .14em; }
+ion-card { margin: 0; border: 1px solid var(--app-line); border-radius: 24px; box-shadow: var(--app-shadow); }
+.chart-card ion-card-content { padding: 22px 18px 18px; }
+.section-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.section-heading h2 { margin: 3px 0 0; font-size: 1.2rem; font-weight: 750; }
+.chart-goal { border-radius: 999px; background: #dff6ef; color: #24715a; padding: 6px 10px; font-size: .72rem; font-weight: 750; }
+.chart { position: relative; display: grid; grid-template-columns: repeat(7,minmax(28px,1fr)); align-items: end; gap: 8px; min-height: 190px; margin-top: 18px; }
+.goal-line { position: absolute; top: 50px; right: 0; left: 0; border-top: 1px dashed rgba(111,121,144,.32); }
+.chart-column { position: relative; display: grid; grid-template-rows: 22px 128px 22px; align-items: end; justify-items: center; gap: 5px; }
+.bar-value,.weekday { color: var(--muted); font-size: .68rem; font-weight: 700; }
+.bar-track { display: flex; align-items: flex-end; width: min(32px,78%); height: 128px; overflow: hidden; border-radius: 12px; background: color-mix(in srgb, var(--app-muted) 9%, var(--app-surface)); }
+.bar-fill { width: 100%; min-height: 5px; border-radius: 12px; background: linear-gradient(180deg,#9d91f1,var(--lavender)); }
+.bar-fill.empty { min-height: 0; }
+.summary-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; margin: 14px 0 28px; }
+.summary-tile { display: flex; gap: 12px; min-height: 132px; border-radius: 22px; padding: 18px 14px; }
+.summary-tile p,.summary-tile small { display: block; margin: 0; color: var(--muted); font-size: .76rem; }
+.summary-tile strong { display: block; margin: 7px 0 5px; font-size: clamp(1.25rem,5vw,1.65rem); letter-spacing: -.045em; }
+.summary-tile strong span { color: var(--muted); font-size: .75rem; letter-spacing: 0; }
+.sleep-summary { background: var(--lavender-soft); }
+.tiredness-summary { background: var(--app-dawn); }
+.summary-icon { display: grid; flex: 0 0 32px; width: 32px; height: 32px; place-items: center; border-radius: 11px; background: rgba(255,255,255,.72); color: var(--lavender); }
+.list-heading { padding: 0 5px 12px; }
+.day-group { margin-bottom: 18px; }
+.day-group > h3 { margin: 0 5px 8px; color: var(--muted); font-size: .78rem; font-weight: 750; }
+.day-group ion-list { border-radius: 20px; background: transparent; }
+ion-item-sliding { overflow: hidden; margin-bottom: 8px; border: 1px solid var(--app-line); border-radius: 18px; box-shadow: var(--app-shadow-soft); }
+.history-item { --background: var(--app-surface); --color: var(--app-ink); --border-radius: 18px; --inner-padding-end: 14px; --padding-start: 14px; margin-bottom: 8px; border: 1px solid var(--app-line); border-radius: 18px; box-shadow: var(--app-shadow-soft); }
+ion-item-sliding .history-item { --border-radius: 0; margin-bottom: 0; border: 0; box-shadow: none; }
+.history-item h4 { margin-bottom: 4px; font-size: .94rem; font-weight: 700; }
+.history-item p { overflow: hidden; max-width: 44vw; color: var(--muted); font-size: .74rem; text-overflow: ellipsis; white-space: nowrap; }
+.history-item ion-note { color: var(--ink); font-size: .82rem; font-weight: 800; }
+.item-symbol { display: grid; width: 34px; height: 34px; place-items: center; border-radius: 11px; background: var(--lavender-soft); color: var(--lavender); }
+.sleepiness-item .item-symbol { background: var(--app-dawn); color: #ba6744; }
+.empty-state { border: 1px dashed rgba(111,121,144,.28); border-radius: 22px; padding: 36px 24px; background: rgba(255,255,255,.68); text-align: center; }
+.empty-state span { display: block; color: var(--lavender); font-size: 2rem; }
+.empty-state h3 { margin: 10px 0 5px; }
+.empty-state p { margin: 0 auto; max-width: 330px; color: var(--muted); font-size: .86rem; line-height: 1.45; }
+
+@media (max-width: 390px) {
+  .summary-grid { grid-template-columns: 1fr; }
+  .summary-tile { min-height: auto; }
+}

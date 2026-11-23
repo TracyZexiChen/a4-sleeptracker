@@ -1,0 +1,66 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start"><ion-back-button defaultHref="/tabs/history"></ion-back-button></ion-buttons>
+    <ion-title>Reminders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar><ion-title size="large">Reminders</ion-title></ion-toolbar>
+  </ion-header>
+
+  <main class="settings-shell" *ngIf="loaded">
+    <ion-card class="intro-card">
+      <ion-card-content>
+        <span class="bell"><ion-icon name="notifications-outline"></ion-icon></span>
+        <div>
+          <h2>Pause and check in</h2>
+          <p>Daily prompts make experience sampling easier and help reveal how alertness changes.</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">DAILY SCHEDULE</p>
+        <h2>Check-in times</h2>
+      </div>
+      <span>{{ normalizedCount }} of {{ maxReminders }}</span>
+    </div>
+
+    <ion-list class="reminder-list" inset="true" *ngIf="times.length; else noTimes">
+      <ion-item class="reminder-row" lines="none" *ngFor="let time of times; let i = index">
+        <span slot="start" class="reminder-number">{{ i + 1 }}</span>
+        <div class="reminder-body">
+          <span class="reminder-label">Daily reminder {{ i + 1 }}</span>
+          <div class="reminder-controls">
+            <ion-input class="time-input" type="time" [(ngModel)]="times[i]"
+              [attr.aria-label]="'Daily reminder ' + (i + 1)"></ion-input>
+            <ion-button class="remove-button" fill="clear" color="danger" (click)="removeTime(i)" aria-label="Remove reminder">
+              <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <ng-template #noTimes>
+      <div class="empty-state">No reminders yet. Add morning, afternoon, or evening check-ins.</div>
+    </ng-template>
+
+    <ion-button class="add-button" expand="block" fill="outline" (click)="addTime()" [disabled]="times.length >= maxReminders">
+      <ion-icon name="add-outline" slot="start"></ion-icon>
+      Add a time
+    </ion-button>
+
+    <p class="platform-note" *ngIf="!isNative">
+      Browser preview saves the schedule only. Native alerts and notification taps must be tested on an iOS/Android emulator or device.
+    </p>
+
+    <ion-button class="save-button" expand="block" size="large" (click)="save()" [disabled]="saving">
+      {{ saving ? 'Saving…' : 'Save reminders' }}
+    </ion-button>
+  </main>
+</ion-content>
+

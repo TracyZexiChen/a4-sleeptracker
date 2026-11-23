@@ -1,0 +1,51 @@
+<ion-list inset="true">
+  <ion-item>
+    <ion-icon name="bed-outline" slot="start" color="primary"></ion-icon>
+    <ion-label class="time-label">Went to bed</ion-label>
+    <ion-datetime-button [datetime]="bedtimeId"></ion-datetime-button>
+  </ion-item>
+  <ion-item>
+    <ion-icon name="sunny-outline" slot="start" color="warning"></ion-icon>
+    <ion-label class="time-label">Woke up</ion-label>
+    <ion-datetime-button [datetime]="wakeTimeId"></ion-datetime-button>
+  </ion-item>
+</ion-list>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime [id]="bedtimeId" presentation="date-time" [(ngModel)]="value.bedtime" [max]="maxDate"
+      minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"></ion-datetime>
+  </ng-template>
+</ion-modal>
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime [id]="wakeTimeId" presentation="date-time" [(ngModel)]="value.wakeTime" [max]="maxDate"
+      minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"></ion-datetime>
+  </ng-template>
+</ion-modal>
+
+@if (errorMessage) {
+  <div class="message error"><ion-icon name="warning-outline"></ion-icon>{{ errorMessage }}</div>
+} @else if (warningMessage) {
+  <div class="message warning"><ion-icon name="warning-outline"></ion-icon>{{ warningMessage }}</div>
+}
+
+<ion-list inset="true">
+  <ion-list-header>
+    <ion-label>Quality <ion-note>(optional)</ion-note></ion-label>
+  </ion-list-header>
+  <ion-item lines="none">
+    <ion-segment [(ngModel)]="value.quality" class="quality-segment" scrollable="true">
+      @for (option of qualityOptions; track option) {
+        <ion-segment-button [value]="option"><ion-label>{{ qualityLabels[option] }}</ion-label></ion-segment-button>
+      }
+    </ion-segment>
+  </ion-item>
+</ion-list>
+
+<ion-list inset="true">
+  <div class="notes-field">
+    <ion-textarea fill="outline" label="Notes" labelPlacement="floating" [(ngModel)]="value.notes"
+      [autoGrow]="true" maxlength="200" placeholder="Optional"></ion-textarea>
+  </div>
+</ion-list>

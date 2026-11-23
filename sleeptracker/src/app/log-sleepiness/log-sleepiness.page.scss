@@ -1,45 +1,29 @@
 .prompt {
-  font-size: 17px;
-  color: var(--ion-color-medium);
-  margin: 4px 0 0;
-}
+  margin: 8px 0 4px;
+  padding-top: 8px;
 
-.level {
-  --padding-top: 6px;
-  --padding-bottom: 6px;
-
-  &.selected {
-    --background: var(--app-selected-bg);
+  p {
+    margin: 0 0 4px;
+    color: var(--ion-color-primary);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
   }
-}
 
-.level-text {
-  white-space: normal;
-  font-size: 15px;
-  line-height: 1.3;
-}
-
-/* Number badge, colored from alert (1) to very sleepy (7). */
-.level-badge {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  color: #fff;
-  margin-inline-end: 12px;
-}
-
-@for $i from 1 through 7 {
-  .level-#{$i} .level-badge {
-    background: var(--app-sleepy-#{$i});
+  h1 {
+    margin: 0;
+    color: var(--app-ink);
+    font-size: clamp(1.7rem, 7vw, 2.2rem);
+    font-weight: 760;
+    letter-spacing: -0.04em;
   }
-}
 
-.chips {
-  padding: 0 12px 8px;
+  span {
+    display: block;
+    margin-top: 5px;
+    color: var(--app-muted);
+    font-size: 0.86rem;
+  }
 }
 
 .save-bar {
@@ -49,7 +33,7 @@
   --padding-bottom: 8px;
 }
 
-.time-label {
-  white-space: nowrap;
-  flex: 0 0 auto;
+.save-bar ion-button {
+  height: 52px;
+  margin: 2px 0;
 }

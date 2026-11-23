@@ -11,11 +11,13 @@
     </ion-toolbar>
   </ion-header>
 
-  <div class="ion-padding-horizontal greeting" *ngIf="loaded">
-    <h2>{{ todayString }}</h2>
-  </div>
+  <div class="page-shell" *ngIf="loaded">
+    <section class="greeting">
+      <p class="eyebrow">YOUR DAY</p>
+      <h1>{{ todayString }}</h1>
+      <p class="greeting-copy">A quick check-in, then get back to your day.</p>
+    </section>
 
-  <ng-container *ngIf="loaded">
     <!-- Last night -->
     <ion-card class="night-card">
       <ion-card-header>
@@ -42,7 +44,7 @@
     </ion-card>
 
     <!-- Sleepiness today -->
-    <ion-card>
+    <ion-card class="checkin-card">
       <ion-card-header>
         <ion-card-subtitle>Sleepiness today</ion-card-subtitle>
         <ion-card-title *ngIf="latestSleepiness">
@@ -62,5 +64,5 @@
         </ion-button>
       </ion-card-content>
     </ion-card>
-  </ng-container>
+  </div>
 </ion-content>

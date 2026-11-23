@@ -26,6 +26,10 @@ export const routes: Routes = [
         loadComponent: () => import('./history/history.page').then((m) => m.HistoryPage),
       },
       {
+        path: 'reminders',
+        loadComponent: () => import('./notifications/reminder-settings.page').then((m) => m.ReminderSettingsPage),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',

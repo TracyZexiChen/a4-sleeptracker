@@ -1,20 +1,24 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import {
-  IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote,
-  IonDatetime, IonDatetimeButton, IonModal, IonSegment, IonSegmentButton, IonTextarea,
-  IonButton, IonIcon, IonCard, IonCardContent, IonListHeader, IonFooter,
+  IonContent, IonHeader, IonTitle, IonToolbar,
+  IonButton, IonCard, IonCardContent, IonFooter,
   AlertController, ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { bedOutline, sunnyOutline, warningOutline, checkmarkCircle } from 'ionicons/icons';
+import { checkmarkCircle } from 'ionicons/icons';
 import { SleepService } from '../services/sleep.service';
 import { OvernightSleepData } from '../data/overnight-sleep-data';
-
-/* Nights longer than this get a "are you sure?" warning (likely a wrong AM/PM). */
-const LONG_NIGHT_MINUTES = 14 * 60;
+import {
+  createDefaultSleepForm,
+  overnightFromSleepForm,
+  SleepFormComponent,
+  SleepFormValue,
+  sleepFormDurationMinutes,
+  sleepFormError,
+  sleepFormWarning,
+  toLocalISO,
+} from '../forms/sleep-form.component';
 
 @Component({
   selector: 'app-log-sleep',
@@ -22,22 +26,13 @@ const LONG_NIGHT_MINUTES = 14 * 60;
   styleUrls: ['./log-sleep.page.scss'],
   standalone: true,
   imports: [
-    IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonNote,
-    IonDatetime, IonDatetimeButton, IonModal, IonSegment, IonSegmentButton, IonTextarea,
-    IonButton, IonIcon, IonCard, IonCardContent, IonListHeader, IonFooter,
-    CommonModule, FormsModule,
+    IonContent, IonHeader, IonTitle, IonToolbar,
+    IonButton, IonCard, IonCardContent, IonFooter, SleepFormComponent,
   ],
 })
 export class LogSleepPage {
-  /* ion-datetime works with ISO strings in local time. */
-  bedtime = '';
-  wakeTime = '';
-  quality?:number;
-  notes = '';
+  form: SleepFormValue = createDefaultSleepForm();
   maxDate = '';
-
-  qualityOptions = [1, 2, 3, 4, 5];
-  qualityLabels = OvernightSleepData.QualityLabels;
 
   constructor(
     private sleepService:SleepService,
@@ -45,7 +40,8 @@ export class LogSleepPage {
     private toastCtrl:ToastController,
     private router:Router,
   ) {
-    addIcons({ bedOutline, sunnyOutline, warningOutline, checkmarkCircle });
+    addIcons({ checkmarkCircle });
+    this.resetForm();
   }
 
   /* Reset the form every time the tab is opened, so it starts from sensible defaults. */
@@ -53,36 +49,14 @@ export class LogSleepPage {
     this.resetForm();
   }
 
-  /*
-   * Most people log in the morning, so default to a typical night:
-   * 11 PM last night -> 7 AM this morning. If it's still before 7 AM,
-   * use the current time as the wake-up time (they just got up early).
-   */
   resetForm() {
     const now = new Date();
-    const wake = new Date(now);
-    wake.setHours(7, 0, 0, 0);
-    if (now < wake) {
-      // Round down to 5 minutes to match the picker's minute steps.
-      wake.setTime(now.getTime());
-      wake.setMinutes(now.getMinutes() - (now.getMinutes() % 5), 0, 0);
-    }
-    const bed = new Date(wake);
-    bed.setDate(bed.getDate() - 1);
-    bed.setHours(23, 0, 0, 0);
-
-    this.bedtime = LogSleepPage.toLocalISO(bed);
-    this.wakeTime = LogSleepPage.toLocalISO(wake);
-    this.maxDate = LogSleepPage.toLocalISO(now);
-    this.quality = undefined;
-    this.notes = '';
+    this.form = createDefaultSleepForm(now);
+    this.maxDate = toLocalISO(now);
   }
 
-  get bedDate():Date { return new Date(this.bedtime); }
-  get wakeDate():Date { return new Date(this.wakeTime); }
-
   get durationMinutes():number {
-    return Math.round((this.wakeDate.getTime() - this.bedDate.getTime()) / 60000);
+    return sleepFormDurationMinutes(this.form);
   }
 
   get durationText():string {
@@ -91,23 +65,18 @@ export class LogSleepPage {
 
   /* Error prevention: the save button is disabled while this returns a message. */
   get errorMessage():string | null {
-    if (this.durationMinutes <= 0) return 'Wake time is before bedtime.';
-    if (this.wakeDate.getTime() > Date.now() + 60000) return 'Wake time is in the future.';
-    return null;
+    return sleepFormError(this.form);
   }
 
   get warningMessage():string | null {
-    if (this.durationMinutes > LONG_NIGHT_MINUTES) {
-      return 'Over 14 hours. Check AM/PM.';
-    }
-    return null;
+    return sleepFormWarning(this.form);
   }
 
   async save() {
     if (this.errorMessage) return;
 
-    const night = new OvernightSleepData(this.bedDate, this.wakeDate, this.quality, this.notes.trim() || undefined);
-    const existing = this.sleepService.getOvernightForDay(this.wakeDate);
+    const night = overnightFromSleepForm(this.form);
+    const existing = this.sleepService.getOvernightForDay(night.sleepEnd);
 
     // One night per day: ask before overwriting an existing log.
     if (existing) {
@@ -146,12 +115,5 @@ export class LogSleepPage {
     });
     await toast.present();
     this.router.navigateByUrl('/tabs/home');
-  }
-
-  /* Format a Date as "YYYY-MM-DDTHH:mm" in local time (what ion-datetime expects). */
-  static toLocalISO(date:Date):string {
-    const pad = (n:number) => String(n).padStart(2, '0');
-    return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate()) +
-      'T' + pad(date.getHours()) + ':' + pad(date.getMinutes());
   }
 }

@@ -42,6 +42,21 @@
   --app-night-gradient: linear-gradient(135deg, #1f2a5a 0%, #5b5bd6 100%);
   --app-selected-bg: rgba(91, 91, 214, 0.1);
 
+  /* Sleep Tracker design system: soft enough for late-night use, crisp enough for quick check-ins. */
+  --app-canvas: #f5f5fa;
+  --app-surface: #ffffff;
+  --app-ink: #1b1a2e;
+  --app-muted: #747389;
+  --app-line: rgba(62, 54, 112, 0.09);
+  --app-lavender: #eeeaff;
+  --app-dawn: #fff0e5;
+  --app-mint: #ddf3eb;
+  --app-radius-lg: 24px;
+  --app-radius-md: 18px;
+  --app-shadow: 0 12px 32px rgba(38, 33, 82, 0.08);
+  --app-shadow-soft: 0 6px 18px rgba(38, 33, 82, 0.055);
+  --app-display-font: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont, sans-serif;
+
   /* Stanford Sleepiness Scale colors, from alert (1, teal) to very sleepy (7, deep purple). */
   --app-sleepy-1: #2bb3a3;
   --app-sleepy-2: #4fa3c7;
@@ -60,5 +75,15 @@
     --ion-color-primary-shade: #7171d3;
     --ion-color-primary-tint: #8d8df2;
     --app-selected-bg: rgba(128, 128, 240, 0.18);
+    --app-canvas: #12121b;
+    --app-surface: #1d1c29;
+    --app-ink: #f5f3ff;
+    --app-muted: #aaa7bd;
+    --app-line: rgba(226, 221, 255, 0.1);
+    --app-lavender: #292640;
+    --app-dawn: #362820;
+    --app-mint: #1d352e;
+    --app-shadow: 0 14px 34px rgba(0, 0, 0, 0.24);
+    --app-shadow-soft: 0 7px 18px rgba(0, 0, 0, 0.18);
   }
 }

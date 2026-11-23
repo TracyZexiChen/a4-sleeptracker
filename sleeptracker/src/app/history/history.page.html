@@ -1,11 +1,11 @@
-<!--
-  History page: placeholder for Phase 2 (Stella).
-  Read data with sleepService.getOvernight() / getSleepiness() after `await sleepService.ready`,
-  and subscribe to sleepService.changes$ to refresh.
--->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>History</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/tabs/reminders" aria-label="Reminder settings">
+        <ion-icon name="notifications-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -15,4 +15,120 @@
       <ion-title size="large">History</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <main class="history-shell">
+    <section class="hero">
+      <p class="eyebrow">YOUR WEEK</p>
+      <h1>Sleep at a glance</h1>
+      <p>Notice the rhythm, not just a single night.</p>
+    </section>
+
+    <ion-card class="chart-card">
+      <ion-card-content>
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">LAST 7 DAYS</p>
+            <h2>Sleep duration</h2>
+          </div>
+          <span class="chart-goal">8h goal</span>
+        </div>
+        <div class="chart" role="img" aria-label="Sleep duration for the last seven days">
+          <div class="goal-line" aria-hidden="true"></div>
+          @for (day of viewModel.chart; track day.key) {
+            <div class="chart-column">
+              <span class="bar-value">{{ day.hours === null ? '—' : (day.hours | number: '1.1-1') + 'h' }}</span>
+              <div class="bar-track">
+                <div class="bar-fill" [class.empty]="day.hours === null" [style.height.%]="day.heightPercent"></div>
+              </div>
+              <span class="weekday">{{ day.weekday }}</span>
+            </div>
+          }
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <section class="summary-grid" aria-label="Sleep summary">
+      <article class="summary-tile sleep-summary">
+        <span class="summary-icon" aria-hidden="true">☾</span>
+        <div>
+          <p>Average sleep</p>
+          <strong>{{ formatMinutes(viewModel.averageSleepMinutes) }}</strong>
+          <small>{{ viewModel.nightsLogged }} nights</small>
+        </div>
+      </article>
+      <article class="summary-tile tiredness-summary">
+        <span class="summary-icon" aria-hidden="true">◉</span>
+        <div>
+          <p>Average sleepiness</p>
+          <strong>{{ viewModel.averageSleepiness === null ? '—' : (viewModel.averageSleepiness | number: '1.1-1') }} <span>/ 7</span></strong>
+          <small>{{ viewModel.ratingsLogged }} check-ins</small>
+        </div>
+      </article>
+    </section>
+
+    <section class="timeline">
+      <div class="section-heading list-heading">
+        <div>
+          <p class="eyebrow">TIMELINE</p>
+          <h2>Daily history</h2>
+        </div>
+      </div>
+
+      @if (viewModel.days.length === 0) {
+        <div class="empty-state">
+          <span aria-hidden="true">☾</span>
+          <h3>Your sleep story starts here</h3>
+          <p>Log a night or a sleepiness check-in to see patterns over time.</p>
+        </div>
+      } @else {
+        @for (day of viewModel.days; track day.key) {
+          <article class="day-group">
+            <h3>{{ day.label }}</h3>
+            <ion-list lines="none">
+              @for (record of day.overnight; track record.id) {
+                <ion-item-sliding #nightSliding>
+                  <ion-item class="history-item">
+                    <span slot="start" class="item-symbol" aria-hidden="true">☾</span>
+                    <ion-label>
+                      <h4>Overnight sleep</h4>
+                      <p>{{ record.rangeString() }}@if (record.qualityLabel()) { · {{ record.qualityLabel() }}}</p>
+                    </ion-label>
+                    <ion-note slot="end">{{ record.durationString() }}</ion-note>
+                  </ion-item>
+                  <ion-item-options side="end">
+                    <ion-item-option color="primary" aria-label="Edit overnight sleep" (click)="edit('overnight', record, nightSliding)">
+                      <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                    </ion-item-option>
+                    <ion-item-option color="danger" aria-label="Delete overnight sleep" (click)="remove('overnight', record, nightSliding)">
+                      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                    </ion-item-option>
+                  </ion-item-options>
+                </ion-item-sliding>
+              }
+              @for (record of day.sleepiness; track record.id) {
+                <ion-item-sliding #sleepinessSliding>
+                  <ion-item class="history-item sleepiness-item">
+                    <span slot="start" class="item-symbol" aria-hidden="true">◉</span>
+                    <ion-label>
+                      <h4>Sleepiness check-in</h4>
+                      <p>{{ record.timeString() }}@if (record.context) { · {{ record.context }}}</p>
+                    </ion-label>
+                    <ion-note slot="end">{{ record.loggedValue }}/7</ion-note>
+                  </ion-item>
+                  <ion-item-options side="end">
+                    <ion-item-option color="primary" aria-label="Edit sleepiness check-in" (click)="edit('sleepiness', record, sleepinessSliding)">
+                      <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+                    </ion-item-option>
+                    <ion-item-option color="danger" aria-label="Delete sleepiness check-in" (click)="remove('sleepiness', record, sleepinessSliding)">
+                      <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                    </ion-item-option>
+                  </ion-item-options>
+                </ion-item-sliding>
+              }
+            </ion-list>
+          </article>
+        }
+      }
+    </section>
+  </main>
 </ion-content>
