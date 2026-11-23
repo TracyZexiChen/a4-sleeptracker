@@ -1,0 +1,62 @@
+.duration-card {
+  text-align: center;
+  background: var(--app-night-gradient);
+  color: #fff;
+}
+
+.duration-label {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.duration-value {
+  font-size: 44px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+
+  &.invalid {
+    opacity: 0.4;
+  }
+}
+
+.save-bar {
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --padding-top: 8px;
+  --padding-bottom: 8px;
+}
+
+.time-label {
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* Fit all five quality words on a phone screen without truncating. */
+.quality-segment ion-segment-button {
+  min-width: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+
+  ion-label {
+    font-size: 13px;
+    text-transform: none;
+    letter-spacing: 0;
+    overflow: visible;
+  }
+}
+
+.message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0 32px;
+  font-size: 14px;
+
+  &.error {
+    color: var(--ion-color-danger);
+  }
+
+  &.warning {
+    color: var(--ion-color-warning-shade);
+  }
+}

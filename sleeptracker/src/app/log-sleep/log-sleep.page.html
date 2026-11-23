@@ -1,0 +1,83 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Log Sleep</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Log Sleep</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Live summary so the person sees the result before saving. -->
+  <ion-card class="duration-card">
+    <ion-card-content>
+      <div class="duration-label">You slept</div>
+      <div class="duration-value" [class.invalid]="errorMessage">{{ durationText }}</div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list inset="true">
+    <ion-item>
+      <ion-icon name="bed-outline" slot="start" color="primary"></ion-icon>
+      <ion-label class="time-label">Went to bed</ion-label>
+      <ion-datetime-button datetime="bedtime"></ion-datetime-button>
+    </ion-item>
+    <ion-item>
+      <ion-icon name="sunny-outline" slot="start" color="warning"></ion-icon>
+      <ion-label class="time-label">Woke up</ion-label>
+      <ion-datetime-button datetime="waketime"></ion-datetime-button>
+    </ion-item>
+  </ion-list>
+
+  <!-- The pickers open in a bottom sheet, the usual pattern for date/time input on iOS. -->
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="bedtime" presentation="date-time" [(ngModel)]="bedtime" [max]="maxDate" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+  <ion-modal [keepContentsMounted]="true">
+    <ng-template>
+      <ion-datetime id="waketime" presentation="date-time" [(ngModel)]="wakeTime" [max]="maxDate" minuteValues="0,5,10,15,20,25,30,35,40,45,50,55"></ion-datetime>
+    </ng-template>
+  </ion-modal>
+
+  <div class="message error" *ngIf="errorMessage">
+    <ion-icon name="warning-outline"></ion-icon> {{ errorMessage }}
+  </div>
+  <div class="message warning" *ngIf="!errorMessage && warningMessage">
+    <ion-icon name="warning-outline"></ion-icon> {{ warningMessage }}
+  </div>
+
+  <ion-list inset="true">
+    <ion-list-header>
+      <ion-label>Quality <ion-note>(optional)</ion-note></ion-label>
+    </ion-list-header>
+    <ion-item lines="none">
+      <ion-segment [(ngModel)]="quality" class="quality-segment">
+        <ion-segment-button *ngFor="let q of qualityOptions" [value]="q">
+          <ion-label>{{ qualityLabels[q] }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </ion-item>
+  </ion-list>
+
+  <ion-list inset="true">
+    <ion-item>
+      <ion-textarea label="Notes" labelPlacement="stacked" [(ngModel)]="notes" [autoGrow]="true"
+        placeholder="Optional" maxlength="200"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<!-- Fixed footer so the save button is always reachable with the thumb, without scrolling. -->
+<ion-footer>
+  <ion-toolbar class="save-bar">
+    <ion-button expand="block" size="large" (click)="save()" [disabled]="!!errorMessage">
+      Save
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

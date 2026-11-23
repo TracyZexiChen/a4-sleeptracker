@@ -1,20 +1,66 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Today</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Today</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+  <div class="ion-padding-horizontal greeting" *ngIf="loaded">
+    <h2>{{ todayString }}</h2>
   </div>
+
+  <ng-container *ngIf="loaded">
+    <!-- Last night -->
+    <ion-card class="night-card">
+      <ion-card-header>
+        <ion-card-subtitle>Last night</ion-card-subtitle>
+        <ion-card-title *ngIf="lastNight">{{ lastNight.durationString() }}</ion-card-title>
+        <ion-card-title *ngIf="!lastNight">Not logged yet</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ng-container *ngIf="lastNight; else logNight">
+          <p>{{ lastNight.rangeString() }}<span *ngIf="lastNight.qualityLabel()"> · {{ lastNight.qualityLabel() }}</span></p>
+          <ion-button fill="clear" size="small" routerLink="/tabs/log-sleep" class="on-dark">
+            <ion-icon name="create-outline" slot="start"></ion-icon>
+            Edit
+          </ion-button>
+        </ng-container>
+        <ng-template #logNight>
+          <ion-button routerLink="/tabs/log-sleep" color="light">
+            <ion-icon name="moon" slot="start"></ion-icon>
+            Log sleep
+          </ion-button>
+        </ng-template>
+        <p class="week-avg" *ngIf="weekAverageMinutes > 0">Past 7 days: {{ weekAverageText }} avg</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Sleepiness today -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Sleepiness today</ion-card-subtitle>
+        <ion-card-title *ngIf="latestSleepiness">
+          <span class="level-dot" [style.background]="'var(--app-sleepy-' + latestSleepiness.loggedValue + ')'">
+            {{ latestSleepiness.loggedValue }}
+          </span>
+          at {{ latestSleepiness.timeString() }}
+        </ion-card-title>
+        <ion-card-title *ngIf="!latestSleepiness">Nothing yet</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <p *ngIf="latestSleepiness">{{ latestSleepiness.description() }}</p>
+        <p *ngIf="todaySleepiness.length > 1">{{ todaySleepiness.length }} logs today</p>
+        <ion-button routerLink="/tabs/log-sleepiness" fill="outline">
+          <ion-icon name="cafe-outline" slot="start"></ion-icon>
+          Log sleepiness
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
 </ion-content>

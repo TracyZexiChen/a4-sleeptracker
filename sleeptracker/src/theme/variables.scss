@@ -1,2 +1,64 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+//
+// A calm "night sky" palette: indigo as the main color, with a warm amber
+// for wake-up/sun accents. Colors generated with Ionic's Color Generator
+// (https://ionicframework.com/docs/theming/color-generator).
+
+:root {
+  /* Primary: indigo */
+  --ion-color-primary: #5b5bd6;
+  --ion-color-primary-rgb: 91, 91, 214;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #5050bc;
+  --ion-color-primary-tint: #6b6bda;
+
+  /* Secondary: lavender */
+  --ion-color-secondary: #8e7cc3;
+  --ion-color-secondary-rgb: 142, 124, 195;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #7d6dac;
+  --ion-color-secondary-tint: #9989c9;
+
+  /* Tertiary: deep navy */
+  --ion-color-tertiary: #1f2a5a;
+  --ion-color-tertiary-rgb: 31, 42, 90;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #1b254f;
+  --ion-color-tertiary-tint: #353f6b;
+
+  /* Warning: sunrise amber */
+  --ion-color-warning: #f4a340;
+  --ion-color-warning-rgb: 244, 163, 64;
+  --ion-color-warning-contrast: #000000;
+  --ion-color-warning-contrast-rgb: 0, 0, 0;
+  --ion-color-warning-shade: #d78f38;
+  --ion-color-warning-tint: #f5ac53;
+
+  /* App-specific tokens */
+  --app-night-gradient: linear-gradient(135deg, #1f2a5a 0%, #5b5bd6 100%);
+  --app-selected-bg: rgba(91, 91, 214, 0.1);
+
+  /* Stanford Sleepiness Scale colors, from alert (1, teal) to very sleepy (7, deep purple). */
+  --app-sleepy-1: #2bb3a3;
+  --app-sleepy-2: #4fa3c7;
+  --app-sleepy-3: #5b8ee0;
+  --app-sleepy-4: #6b74db;
+  --app-sleepy-5: #7a5fd0;
+  --app-sleepy-6: #7c4bb8;
+  --app-sleepy-7: #5e3591;
+}
+
+/* Dark mode follows the system setting (dark.system.css in global.scss). */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ion-color-primary: #8080f0;
+    --ion-color-primary-rgb: 128, 128, 240;
+    --ion-color-primary-shade: #7171d3;
+    --ion-color-primary-tint: #8d8df2;
+    --app-selected-bg: rgba(128, 128, 240, 0.18);
+  }
+}
