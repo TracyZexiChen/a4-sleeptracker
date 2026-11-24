@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="cancel()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-title>{{ kind === 'overnight' ? 'Edit sleep' : 'Edit check-in' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button strong="true" (click)="save()" [disabled]="!!errorMessage">Save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (kind === 'overnight') {
+    <app-sleep-form [value]="sleepForm" [maxDate]="maxDate" formId="edit-sleep"></app-sleep-form>
+  } @else {
+    <app-sleepiness-form [value]="sleepinessForm" [maxDate]="maxDate" formId="edit-sleepiness"></app-sleepiness-form>
+  }
+</ion-content>
+

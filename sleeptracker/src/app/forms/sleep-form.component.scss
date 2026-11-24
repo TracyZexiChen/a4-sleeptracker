@@ -1,0 +1,16 @@
+:host { display: block; }
+ion-list[inset="true"] { margin: 14px 16px; }
+ion-item { --background: var(--app-surface); --color: var(--app-ink); --min-height: 58px; }
+.time-label { flex: 0 0 auto; white-space: nowrap; }
+.quality-segment { width: 100%; }
+.quality-segment ion-segment-button { min-width: 64px; --padding-start: 0; --padding-end: 0; }
+.quality-segment ion-label { overflow: visible; font-size: 12px; letter-spacing: 0; text-transform: none; }
+.message { display: flex; align-items: center; gap: 6px; margin: 0 32px; font-size: 14px; }
+.message.error { color: var(--ion-color-danger); }
+.message.warning { color: var(--ion-color-warning-shade); }
+.notes-field { padding: 12px; }
+
+@media (max-width: 390px) {
+  .quality-segment ion-segment-button { min-width: 58px; }
+  .quality-segment ion-label { font-size: 11px; }
+}

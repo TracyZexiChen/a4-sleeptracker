@@ -1,0 +1,38 @@
+<ion-list inset="true">
+  <ion-list-header><ion-label>Stanford Sleepiness Scale</ion-label></ion-list-header>
+  <ion-radio-group [(ngModel)]="value.rating">
+    @for (level of levels; track level) {
+      <ion-item [class]="'level level-' + level" [class.selected]="value.rating === level">
+        <span slot="start" class="level-badge">{{ level }}</span>
+        <ion-radio [value]="level" labelPlacement="start" justify="space-between">
+          <span class="level-text">{{ scale[level] }}</span>
+        </ion-radio>
+      </ion-item>
+    }
+  </ion-radio-group>
+</ion-list>
+
+<ion-list inset="true">
+  <ion-list-header><ion-label>Tag <ion-note>(optional)</ion-note></ion-label></ion-list-header>
+  <div class="chips">
+    @for (option of contextOptions; track option) {
+      <ion-chip [outline]="value.context !== option" [color]="value.context === option ? 'primary' : 'medium'"
+        (click)="toggleContext(option)">{{ option }}</ion-chip>
+    }
+  </div>
+  <ion-item>
+    <ion-icon name="time-outline" slot="start" color="medium"></ion-icon>
+    <ion-label class="time-label">Time</ion-label>
+    <ion-datetime-button [datetime]="timeId"></ion-datetime-button>
+  </ion-item>
+  <div class="notes-field">
+    <ion-textarea fill="outline" label="Notes" labelPlacement="floating" [(ngModel)]="value.notes"
+      [autoGrow]="true" maxlength="200" placeholder="Optional"></ion-textarea>
+  </div>
+</ion-list>
+
+<ion-modal [keepContentsMounted]="true">
+  <ng-template>
+    <ion-datetime [id]="timeId" presentation="date-time" [(ngModel)]="value.loggedAt" [max]="maxDate"></ion-datetime>
+  </ng-template>
+</ion-modal>

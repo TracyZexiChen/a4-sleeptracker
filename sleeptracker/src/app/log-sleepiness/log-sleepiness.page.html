@@ -11,54 +11,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <p class="prompt ion-padding-horizontal">How sleepy are you?</p>
+  <section class="prompt ion-padding-horizontal">
+    <h1>How sleepy are you?</h1>
+  </section>
 
-  <!-- Stanford Sleepiness Scale: one row per level, with the scale's own wording. -->
-  <ion-list inset="true">
-    <ion-radio-group [(ngModel)]="selected">
-      <ion-item *ngFor="let level of levels" [class]="'level level-' + level" [class.selected]="selected === level">
-        <div slot="start" class="level-badge">{{ level }}</div>
-        <ion-radio [value]="level" justify="space-between" labelPlacement="start">
-          <span class="level-text">{{ scale[level] }}</span>
-        </ion-radio>
-      </ion-item>
-    </ion-radio-group>
-  </ion-list>
-
-  <ion-list inset="true">
-    <ion-list-header>
-      <ion-label>Tag <ion-note>(optional)</ion-note></ion-label>
-    </ion-list-header>
-    <div class="chips">
-      <ion-chip *ngFor="let option of contextOptions" [outline]="context !== option"
-        [color]="context === option ? 'primary' : 'medium'" (click)="toggleContext(option)">
-        {{ option }}
-      </ion-chip>
-    </div>
-    <ion-item>
-      <ion-icon name="time-outline" slot="start" color="medium"></ion-icon>
-      <ion-label class="time-label">Time</ion-label>
-      <ion-datetime-button datetime="sleepiness-time"></ion-datetime-button>
-    </ion-item>
-    <ion-item>
-      <ion-textarea label="Notes" labelPlacement="stacked" [(ngModel)]="notes" [autoGrow]="true"
-        placeholder="Optional" maxlength="200"></ion-textarea>
-    </ion-item>
-  </ion-list>
-
-  <ion-modal [keepContentsMounted]="true">
-    <ng-template>
-      <ion-datetime id="sleepiness-time" presentation="date-time" [(ngModel)]="loggedAt" [max]="maxDate"></ion-datetime>
-    </ng-template>
-  </ion-modal>
+  <app-sleepiness-form [value]="form" [maxDate]="maxDate" formId="log-sleepiness"></app-sleepiness-form>
 
 </ion-content>
 
 <!-- Fixed footer so the save button is always reachable with the thumb, without scrolling. -->
 <ion-footer>
   <ion-toolbar class="save-bar">
-    <ion-button expand="block" size="large" (click)="save()" [disabled]="!selected">
-      {{ selected ? 'Save' : 'Pick a level' }}
+    <ion-button expand="block" size="large" (click)="save()" [disabled]="!!errorMessage">
+      {{ form.rating ? 'Save' : 'Pick a level' }}
     </ion-button>
   </ion-toolbar>
 </ion-footer>

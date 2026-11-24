@@ -1,14 +1,55 @@
+.page-shell {
+  width: min(100%, 680px);
+  margin: 0 auto;
+  padding: 18px 16px 40px;
+}
+
 .greeting {
-  h2 {
-    margin: 8px 0 2px;
-    font-weight: 700;
+  padding: 10px 7px 18px;
+
+  h1 {
+    margin: 4px 0 6px;
+    color: var(--app-ink);
+    font-size: clamp(1.8rem, 8vw, 2.45rem);
+    font-weight: 760;
+    letter-spacing: -0.045em;
   }
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--ion-color-primary);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+}
+
+.greeting-copy {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 0.9rem;
 }
 
 /* The "last night" card uses the app's night-sky gradient. */
 .night-card {
+  position: relative;
+  overflow: hidden;
+  margin: 0 0 14px;
   background: var(--app-night-gradient);
   color: #fff;
+
+  &::after {
+    position: absolute;
+    top: -70px;
+    right: -40px;
+    width: 180px;
+    height: 180px;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow: 0 0 0 28px rgba(255, 255, 255, 0.035), 0 0 0 58px rgba(255, 255, 255, 0.025);
+    content: "";
+    pointer-events: none;
+  }
 
   ion-card-subtitle,
   ion-card-title,
@@ -29,6 +70,32 @@
     margin-top: 8px;
     opacity: 0.75;
     font-size: 13px;
+  }
+}
+
+.night-card ion-card-header,
+.night-card ion-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.night-card ion-card-title {
+  font-family: var(--app-display-font);
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.checkin-card {
+  margin: 0;
+
+  ion-card-title {
+    color: var(--app-ink);
+    font-size: 1.35rem;
+  }
+
+  ion-card-content > p {
+    color: var(--app-muted);
+    line-height: 1.45;
   }
 }
 

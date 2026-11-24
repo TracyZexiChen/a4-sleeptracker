@@ -1,0 +1,27 @@
+ion-content { --background: var(--app-canvas); }
+.settings-shell { width: min(100%, 680px); margin: 0 auto; padding: 18px 16px 44px; }
+.intro-card { position: relative; overflow: hidden; margin: 0 0 26px; border: 0; border-radius: 24px; background: var(--app-night-gradient); color: white; }
+.intro-card::after { position: absolute; top: -62px; right: -52px; width: 170px; height: 170px; border: 1px solid rgba(255,255,255,.13); border-radius: 50%; box-shadow: 0 0 0 28px rgba(255,255,255,.035); content: ""; }
+.intro-card ion-card-content { position: relative; z-index: 1; display: flex; gap: 15px; padding: 22px; }
+.intro-card h2 { margin: 0 0 7px; color: white; font-size: 1.25rem; }
+.intro-card p { margin: 0; color: rgba(255,255,255,.78); line-height: 1.45; }
+.bell { display: grid; flex: 0 0 42px; height: 42px; place-items: center; border-radius: 14px; background: rgba(255,255,255,.15); font-size: 1.35rem; }
+.section-heading { display: flex; align-items: end; justify-content: space-between; padding: 0 6px 8px; }
+.section-heading h2 { margin: 3px 0 0; font-size: 1.2rem; }
+.section-heading > span { color: var(--ion-color-medium); font-size: .78rem; font-weight: 700; }
+.eyebrow { margin: 0; color: var(--ion-color-primary); font-size: .72rem; font-weight: 800; letter-spacing: .14em; }
+ion-list { overflow: hidden; border-radius: 18px; }
+ion-item { --background: var(--app-surface); --color: var(--app-ink); --min-height: 64px; }
+.reminder-list { margin: 6px 0 12px; border-radius: 20px; }
+.reminder-row { --min-height: 82px; --padding-start: 14px; --inner-padding-end: 8px; }
+.reminder-number { display: grid; width: 34px; height: 34px; place-items: center; margin-right: 12px; border-radius: 11px; background: var(--app-lavender); color: var(--ion-color-primary); font-size: .82rem; font-weight: 800; }
+.reminder-body { flex: 1; min-width: 0; padding: 12px 0; }
+.reminder-label { display: block; margin: 0 0 1px; color: var(--app-ink); font-size: .82rem; font-weight: 720; }
+.reminder-controls { display: flex; align-items: center; gap: 8px; }
+.time-input { flex: 1; min-height: 34px; --padding-top: 0; --padding-bottom: 0; color: var(--app-ink); font-family: var(--app-display-font); font-size: 1.08rem; font-weight: 720; }
+.remove-button { --border-radius: 11px; flex: 0 0 38px; width: 38px; height: 38px; min-height: 38px; margin: 0; }
+.add-button { --border-width: 1.5px; height: 48px; margin: 0; }
+.empty-state { margin-bottom: 14px; border: 1px dashed rgba(111,121,144,.35); border-radius: 18px; padding: 24px; color: var(--ion-color-medium); text-align: center; line-height: 1.45; }
+.platform-note { margin: 18px 6px; color: var(--ion-color-medium); font-size: .82rem; line-height: 1.45; }
+.save-button { height: 52px; margin-top: 24px; }
+

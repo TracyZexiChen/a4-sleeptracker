@@ -4,7 +4,7 @@ import { RouterLink } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,
-  IonCardSubtitle, IonCardContent, IonButton, IonIcon, IonNote,
+  IonCardSubtitle, IonCardContent, IonButton, IonIcon,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { moon, addCircleOutline, cafeOutline, createOutline } from 'ionicons/icons';
@@ -23,7 +23,7 @@ import { StanfordSleepinessData } from '../data/stanford-sleepiness-data';
   styleUrls: ['home.page.scss'],
   imports: [
     IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle,
-    IonCardSubtitle, IonCardContent, IonButton, IonIcon, IonNote, CommonModule, RouterLink,
+    IonCardSubtitle, IonCardContent, IonButton, IonIcon, CommonModule, RouterLink,
   ],
 })
 export class HomePage implements OnInit, OnDestroy {
