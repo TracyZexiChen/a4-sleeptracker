@@ -17,11 +17,6 @@
   </ion-header>
 
   <main class="history-shell">
-    <section class="hero">
-      <p class="eyebrow">YOUR WEEK</p>
-      <h1>Sleep at a glance</h1>
-      <p>Notice the rhythm, not just a single night.</p>
-    </section>
 
     <ion-card class="chart-card">
       <ion-card-content>
@@ -77,8 +72,8 @@
       @if (viewModel.days.length === 0) {
         <div class="empty-state">
           <span aria-hidden="true">☾</span>
-          <h3>Your sleep story starts here</h3>
-          <p>Log a night or a sleepiness check-in to see patterns over time.</p>
+          <h3>Nothing logged yet</h3>
+          <p>Your sleep and sleepiness logs will show up here.</p>
         </div>
       } @else {
         @for (day of viewModel.days; track day.key) {

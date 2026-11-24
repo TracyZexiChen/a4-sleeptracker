@@ -70,7 +70,7 @@ export class ReminderService {
           return {
             id: FIRST_NOTIFICATION_ID + index,
             title: 'How sleepy are you?',
-            body: 'Take a quick Stanford Sleepiness Scale check-in.',
+            body: 'Tap to log it.',
             schedule: { on: { hour, minute }, repeats: true, allowWhileIdle: true },
             extra: { route: '/tabs/log-sleepiness' },
           };

@@ -83,7 +83,7 @@ export class ReminderSettingsPage implements OnInit {
       const toast = await this.toastCtrl.create({
         message: result.scheduledNatively
           ? `${result.times.length} daily reminder${result.times.length === 1 ? '' : 's'} scheduled`
-          : 'Times saved. Run on iOS or Android to schedule native alerts.',
+          : 'Times saved',
         duration: 3200,
         position: 'top',
         color: result.scheduledNatively ? 'success' : 'medium',
