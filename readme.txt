@@ -1,4 +1,4 @@
---Readme document for Stella Jiang (yuxuj10@uci.edu, 83089982) and Zexi (Tracy) Chen (zexic7@uci.edu, 76111328)--
+--Readme document for Stella Jiang (yuxuj10@uci.edu, 83089982) and Tracy Zexi Chen (zexic7@uci.edu, 76111328)--
 --Canvas group: A4 Pair 31--
 
 1. How many assignment points do you believe you completed?
